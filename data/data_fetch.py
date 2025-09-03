@@ -36,3 +36,18 @@ def fetch_option_chain(api_key, client_id, jwt_token, symbol, expiry):
     except Exception as e:
         print(f"⚠️ Option chain fetch error: {e}")
         return pd.DataFrame()
+
+
+# ✅ New function to fetch instruments master list
+ANGEL_INSTRUMENTS_URL = "https://margincalculator.angelbroking.com/OpenAPI_File/files/OpenAPIScripMaster.json"
+
+def fetch_instruments():
+    try:
+        res = requests.get(ANGEL_INSTRUMENTS_URL, timeout=15)
+        res.raise_for_status()
+        data = res.json()
+        return pd.DataFrame(data)
+    except Exception as e:
+        print(f"⚠️ Instruments fetch error: {e}")
+        return pd.DataFrame()
+
